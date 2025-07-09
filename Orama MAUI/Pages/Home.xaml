@@ -1,26 +1,99 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Orama.Pages.Home"
-             Shell.NavBarIsVisible="True"
-             Shell.NavBarHasShadow="True"
-             Title="Home">
-    <Shell.TitleView>
-        <Grid ColumnDefinitions="*,auto,auto">
-            <HorizontalStackLayout Grid.Column="0" HorizontalOptions="Center">
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"  
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"  
+             xmlns:local="clr-namespace:Orama.Pages"  
+             x:Class="Orama.Pages.Home"  
+             Shell.NavBarIsVisible="True"  
+             Title="Home">  
+    <Shell.TitleView>  
+        <Grid ColumnDefinitions="*,auto,auto">  
+            <HorizontalStackLayout Grid.Column="0" HorizontalOptions="Center">  
                 <Image Source="{AppThemeBinding Light=orama.png,Dark=orama_dark.png}"/>  
-            </HorizontalStackLayout>
-            <HorizontalStackLayout Grid.Column="2" Spacing="10" Margin="10,0">
-                <Image Source="notification.png" HeightRequest="30">
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="Notification_Tapped"/>
-                    </Image.GestureRecognizers>
-                </Image>
-            </HorizontalStackLayout>
-        </Grid>
-    </Shell.TitleView>
-    
-    <ScrollView>
-       
-    </ScrollView>
+            </HorizontalStackLayout>  
+            <HorizontalStackLayout Grid.Column="2" Spacing="10" Margin="10,0">  
+                <Image Source="notification.png" HeightRequest="30">  
+                    <Image.GestureRecognizers>  
+                        <TapGestureRecognizer Tapped="Notification_Tapped"/>  
+                    </Image.GestureRecognizers>  
+                </Image>  
+            </HorizontalStackLayout>  
+        </Grid>  
+    </Shell.TitleView>   <!--Home Custom Navbar -->
+    <ScrollView x:Name="SwipeArea">
+        <StackLayout>
+            <VerticalStackLayout IsVisible="True">
+                <CarouselView x:Name="HomeCarouselView" IndicatorView="{x:Reference HomeIndicator1}">
+                    <CarouselView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Horizontal"/>
+                    </CarouselView.ItemsLayout>
+                    <CarouselView.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>Slide 1: Welcome</x:String>
+                            <x:String>Slide 2: Features</x:String>
+                            <x:String>Slide 3: Pricing</x:String>
+                            <x:String>Slide 4: Contact</x:String>
+                        </x:Array>
+                    </CarouselView.ItemsSource>
+                    <CarouselView.ItemTemplate>
+                        <DataTemplate>
+                            <Border Margin="0,20">
+                                <Border.Stroke>
+                                    <SolidColorBrush Color="Transparent"/>
+                                </Border.Stroke>
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="0"/>
+                                </Border.StrokeShape>
+                                <Label Text="{Binding .}"  
+                               VerticalOptions="Center"  
+                               HorizontalOptions="Center"  
+                               FontSize="24"/>
+                            </Border>
+                        </DataTemplate>
+                    </CarouselView.ItemTemplate>
+                </CarouselView>
+                <IndicatorView x:Name="HomeIndicator1" HorizontalOptions="Center"  
+                           IndicatorColor="{AppThemeBinding Light=LightGrey,Dark=LightGrey}"  
+                           SelectedIndicatorColor="{AppThemeBinding Light=Black,Dark=Black}"  
+                           IndicatorSize="6"></IndicatorView>
+            </VerticalStackLayout>   <!-- Home CarouselView  -->
+            <Grid ColumnDefinitions="*,*"
+                  Padding="2"
+                  Margin="0,10,0,0"
+                  BackgroundColor="#E1E1E1">
+                <Label x:Name="ForYouTab"
+                       Text="For You"
+                       Grid.Column="0"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"
+                       FontSize="16">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="ForYouTab_Tapped"/>
+                    </Label.GestureRecognizers>
+                </Label>
+                <Label x:Name="FollowingTab"
+                       Grid.Column="1"
+                       Text="Following"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"
+                       FontSize="16">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="FollowingTab_Tapped"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+            </Grid>  <!-- Segmented tab Header-->
+            <CarouselView x:Name="HomeCarousel" HeightRequest="50" PositionChanged="HomeCarousel_PositionChanged">
+                <CarouselView.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Content for For You</x:String>
+                        <x:String>Content for Following</x:String>
+                    </x:Array>
+                </CarouselView.ItemsSource>
+                <CarouselView.ItemTemplate>
+                    <DataTemplate>
+                        <Label Text="{Binding .}" FontSize="24" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    </DataTemplate>
+                </CarouselView.ItemTemplate>
+            </CarouselView>  <!--Segmented tab content part -->
+        </StackLayout>
+    </ScrollView>  
 </ContentPage>

@@ -1,0 +1,19 @@
+# Visual Studio cache folder
+.vs/
+
+# Build output folders
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+
+# Rider IDE files
+.idea/
+
+# Mac system files
+.DS_Store
+
+# Other
+*.log
