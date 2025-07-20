@@ -18,7 +18,7 @@ namespace Orama
             try
             {
                 Page rootPage;
-                if (appStatus.IsLoggedIn == true)
+                if (appStatus.IsLoggedIn == false)
                     rootPage = new NavigationPage(new Login());
                 else
                     rootPage = new AppShell();

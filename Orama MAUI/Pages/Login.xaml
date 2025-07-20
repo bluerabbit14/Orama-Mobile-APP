@@ -57,7 +57,7 @@
                 <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
             </Label.GestureRecognizers>
         </Label>
-        <Label Text="Forgot Password" TextColor="Blue" HorizontalTextAlignment="Center">
+        <Label Text="Forgot Password ?" TextColor="Blue" HorizontalTextAlignment="Center">
             <Label.GestureRecognizers>
                 <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_1"/>
             </Label.GestureRecognizers>
