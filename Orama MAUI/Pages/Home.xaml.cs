@@ -1,28 +1,28 @@
 namespace Orama.Pages;
 
+using Orama.Models.ViewModels;
+
 public partial class Home : ContentPage
 {
-public Home()
-{
-    InitializeComponent();
-    AddSwipeGesture();
-}
-    private void AddSwipeGesture()
+    public Home()
     {
-        var swipeLeft = new SwipeGestureRecognizer { Direction = SwipeDirection.Left };
-        var swipeRight = new SwipeGestureRecognizer { Direction = SwipeDirection.Right };
-
-        swipeLeft.Swiped += (s, e) =>
-        {
-            Shell.Current.FlyoutIsPresented = false;
-        };
-        swipeRight.Swiped += (s, e) =>
+        InitializeComponent();
+        BindingContext = new HomeCarouselViewModel();
+    }
+    private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
+    {
+        // Show the flyout menu when the user icon is tapped
+        if (Shell.Current != null)
         {
             Shell.Current.FlyoutIsPresented = true;
-        };
-        SwipeArea.GestureRecognizers.Add(swipeLeft);
-        SwipeArea.GestureRecognizers.Add(swipeRight);
+        }
     }
+
+    private void Support_tapped(object sender, TappedEventArgs e)
+    {
+        Navigation.PushAsync(new Support());
+    }
+
     private void Notification_Tapped(object sender, TappedEventArgs e)
     {
         Navigation.PushAsync(new Notification());

@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Orama.Models
 {
-    public class LoginRequest
+    internal class SignUpRequest
     {
+        public required string Name { get; set; }
         public required string Email { get; set; }
         public required string Password { get; set; }
-        public bool RememberMe { get; set; }
-        public DateTime LastLogin { get; set; }
-
+        public required string ConfirmPassword { get; set; }
+        public required DateTime CreatedAt { get; set; }
     }
 }

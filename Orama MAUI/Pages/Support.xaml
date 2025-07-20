@@ -3,7 +3,44 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Orama.Pages.Support"
              Title="Support">
-    <VerticalStackLayout>
-        
-    </VerticalStackLayout>
+    <ScrollView>
+        <VerticalStackLayout Spacing="20" Margin="15,0">
+            <Border x:Name="value1">
+                <Border.Stroke>
+                    <SolidColorBrush Color="black"/>
+                </Border.Stroke>
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10"/>
+                </Border.StrokeShape>
+                <StackLayout Orientation="Horizontal" Padding="10" Spacing="10">
+                    <Image Source="about.png" HeightRequest="22" WidthRequest="22"/>
+                    <Label Text="Chat with us" FontSize="18"/>
+                </StackLayout>
+            </Border>
+            <Border x:Name="value2">
+                <Border.Stroke>
+                    <SolidColorBrush Color="black"/>
+                </Border.Stroke>
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10"/>
+                </Border.StrokeShape>
+                <StackLayout Orientation="Vertical" Spacing="10">
+                    
+                        <Label   Text="Contact Us" FontSize="22" Padding="10,10,0,0" FontAttributes="Bold"/>
+                        <Label   Text="Orama@support.com" FontSize="15" Padding="10,0,0,0"/>
+
+                    <Grid ColumnDefinitions="auto,*,auto" Padding="10" ColumnSpacing="10">
+                        <Image Grid.Column="0" Source="about.png" HeightRequest="22" WidthRequest="22"/>
+                        <Label Grid.Column="1" Text="Orama@support.com" FontSize="18"/>
+                        <Image Grid.Column="2" Source="about.png" HeightRequest="22" WidthRequest="22"/>
+                    </Grid>
+                    <Grid ColumnDefinitions="auto,*" Padding="10" ColumnSpacing="10">
+                        <Image Grid.Column="0" Source="about.png" HeightRequest="22" WidthRequest="22"/>
+                        <Label Grid.Column="1" Text="Hour of Operations 10AM - 7PM" FontSize="18"/>
+                    </Grid>
+                </StackLayout>
+            </Border>
+            
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

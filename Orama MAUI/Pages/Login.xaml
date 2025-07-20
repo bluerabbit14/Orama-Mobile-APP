@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Orama.Pages.Login">
+    <VerticalStackLayout  Padding="20" Spacing="20">
+        <Grid>
+            <Image Source="orama.png" HeightRequest="80" WidthRequest="80" Margin="0,20"></Image>
+        </Grid>
+        <Grid ColumnDefinitions="*" RowSpacing="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Border Grid.Row="0" x:Name="EmailBox">
+                <Border.Stroke>
+                    <SolidColorBrush Color="Black"/>
+                </Border.Stroke>
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="5"/>
+                </Border.StrokeShape>
+                <Grid ColumnDefinitions="auto,*">
+                    <Image Grid.Column="0" Margin="10,0,5,0" Source="{AppThemeBinding Light=envelope.png,Dark=envelope_light.png}" HeightRequest="20" WidthRequest="20"></Image>
+                    <Entry x:Name="EmailTextBox"  Grid.Column="1" Placeholder="Email" TextChanged="EmailTextBox_TextChanged"/>
+                </Grid>
+            </Border>
+            <Label x:Name="MsgIfEmailIsEmpty"  Grid.Row="1"  IsVisible="false" Text="Email can not be empty" FontSize="12" TextColor="Red" HorizontalTextAlignment="Start"/>
+            <Label x:Name="MsgIfEmailIsInvalid"  Grid.Row="1"  IsVisible="false" Text="Email is Invalid" FontSize="12" TextColor="Red" HorizontalTextAlignment="Start"/>
+            <Label x:Name="MsgIfEmailNotRegistered"  Grid.Row="1" IsVisible="false" Text="Email is Not Registed, Sign Up" FontSize="12" TextColor="Red" HorizontalTextAlignment="Start"/>
+            <Label x:Name="MsgIfEmailRegistered" Grid.Row="1"  IsVisible="False" Text="Email is Successfully fetched" FontSize="12" TextColor="green" HorizontalTextAlignment="Start"/>
+            <Border Grid.Row="2" x:Name="PasswordBox" IsVisible="true">
+                <Border.Stroke>
+                    <SolidColorBrush Color="Black"/>
+                </Border.Stroke>
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="5"/>
+                </Border.StrokeShape>
+                <Grid ColumnDefinitions="auto,*">
+                    <Image Grid.Column="0" Margin="10,0,5,0" Source="{AppThemeBinding Light=lock.png,Dark=lock_light.png}" HeightRequest="20" WidthRequest="20"></Image>
+                    <Entry x:Name="PasswordTextBox" Grid.Column="1" Placeholder="Password" TextChanged="PasswordTextBox_TextChanged"/>
+                </Grid>
+            </Border>
+            <Label x:Name="MsgIfPasswordIsEmpty"  Grid.Row="3"  IsVisible="false" Text="Password can not be empty" FontSize="12" TextColor="Red" HorizontalTextAlignment="Start"/>
+            <Grid ColumnDefinitions="auto,*" Grid.Row="4" Margin="0,10">
+                <CheckBox x:Name="RememberMeCheckBox" ></CheckBox>
+                <Label Grid.Column="1" Text="Remember me" VerticalOptions="Center"></Label>
+            </Grid>
+            <Button Grid.Row="5" Text="Log In" Clicked="Button_Clicked" ></Button>
+        </Grid>
+       
+
+        <Label Text="New User?  Sign Up" TextColor="Blue" HorizontalTextAlignment="Center">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+            </Label.GestureRecognizers>
+        </Label>
+        <Label Text="Forgot Password" TextColor="Blue" HorizontalTextAlignment="Center">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_1"/>
+            </Label.GestureRecognizers>
+        </Label>
+    </VerticalStackLayout>
+</ContentPage>

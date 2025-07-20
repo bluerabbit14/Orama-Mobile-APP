@@ -2,8 +2,57 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Orama.Pages.Notification"
+             xmlns:vm="clr-namespace:Orama.Models.ViewModels"
+             xmlns:models="clr-namespace:Orama.Models" 
              Title="Notification">
     <ScrollView>
-        
+        <VerticalStackLayout>
+            <HorizontalStackLayout Spacing="5" Margin="5,0">
+                <Border HeightRequest="40">
+                    <Border.Stroke>
+                        <SolidColorBrush Color="SkyBlue"/>
+                    </Border.Stroke>
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="5"/>
+                    </Border.StrokeShape>
+                    <Button x:Name="ButtonAll" Text="All" Background="white" TextColor="SkyBlue" HeightRequest="40" WidthRequest="70" Clicked="ButtonAll_Clicked"></Button>
+                </Border>
+                <Border HeightRequest="40">
+                    <Border.Stroke>
+                        <SolidColorBrush Color="orange"/>
+                    </Border.Stroke>
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="5"/>
+                    </Border.StrokeShape>
+                    <Button x:Name="ButtonImportant" Text="Important" Background="white" TextColor="orange" HeightRequest="40" Clicked="ButtonImportant_Clicked"></Button>
+                </Border>
+                <Border HeightRequest="40">
+                    <Border.Stroke>
+                        <SolidColorBrush Color="red"/>
+                    </Border.Stroke>
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="5"/>
+                    </Border.StrokeShape>
+                    <Button x:Name="ButtonServices" Text="Services" Background="white" TextColor="red" HeightRequest="40" Clicked="ButtonServices_Clicked"></Button>
+                </Border>
+            </HorizontalStackLayout>
+            <CollectionView ItemsSource="{Binding Notificationlist}" SelectionMode="Single" SelectionChanged="CollectionView_SelectionChanged">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid ColumnDefinitions="*,auto" ColumnSpacing="2" Padding="10">
+                           
+                            <Label Grid.Column="0" Text="{Binding description}" LineBreakMode="TailTruncation" FontAttributes="Bold">
+                                <Label.Triggers>
+                                    <DataTrigger TargetType="Label" Binding="{Binding IsRead}" Value="True">
+                                        <Setter Property="FontAttributes" Value="None" />
+                                    </DataTrigger>
+                                </Label.Triggers>
+                            </Label>
+                            <BoxView Grid.Row="1" HeightRequest="1" Color="LightGray"  HorizontalOptions="Fill" VerticalOptions="End" Margin="0,5,0,0"/>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

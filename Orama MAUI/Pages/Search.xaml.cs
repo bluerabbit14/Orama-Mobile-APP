@@ -5,21 +5,19 @@ public partial class Search : ContentPage
     public Search()
     {
         InitializeComponent();
-        AddSwipeGesture();
     }
-    private void AddSwipeGesture()
+
+    private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
     {
-        var swipeLeft = new SwipeGestureRecognizer { Direction = SwipeDirection.Left };
-        var swipeRight = new SwipeGestureRecognizer { Direction = SwipeDirection.Right };
-        swipeLeft.Swiped += (s, e) =>
-        {
-            Shell.Current.FlyoutIsPresented = false;
-        };
-        swipeRight.Swiped += (s, e) =>
+        // Show the flyout menu when the user icon is tapped
+        if (Shell.Current != null)
         {
             Shell.Current.FlyoutIsPresented = true;
-        };
-        SwipeArea.GestureRecognizers.Add(swipeLeft);
-        SwipeArea.GestureRecognizers.Add(swipeRight);
+        }
+    }
+
+    private void Setting_Tapped(object sender, TappedEventArgs e)
+    {
+        Navigation.PushAsync(new Setting());
     }
 }

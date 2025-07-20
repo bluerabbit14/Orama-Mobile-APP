@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Orama.Pages.NotificationDetail"
+             Title="Notification Detail">
+    <ScrollView>
+        <VerticalStackLayout Padding="30,10">
+            <HorizontalStackLayout Grid.Column="0" Grid.Row="0" Spacing="8" Margin="0,8">
+                    <Border Padding="5">
+                        <Border.Stroke>
+                            <SolidColorBrush Color="Black"/>
+                        </Border.Stroke>
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="15"/>
+                        </Border.StrokeShape>
+                        <Image Source="{Binding profilePic}" HeightRequest="20"></Image>
+                    </Border>
+                    <Label Text="{Binding senderName}" VerticalOptions="Center" FontSize="18"></Label>
+            </HorizontalStackLayout>
+
+            <VerticalStackLayout>
+                <BoxView HeightRequest="1" HorizontalOptions="Fill" ></BoxView>
+                <Label Text="{Binding type}" HorizontalTextAlignment="Center" BackgroundColor="SkyBlue" TextColor="White" FontSize="18"></Label>
+                <BoxView HeightRequest="1" HorizontalOptions="Fill" ></BoxView>
+                <Label Text="{Binding description}" Margin="5" LineBreakMode="WordWrap"></Label>
+            </VerticalStackLayout>
+            
+            <StackLayout Orientation="Horizontal" Spacing="4" Margin="5,10">
+                <Label Text="Created At:"></Label>
+                <Label Text="{Binding createdAt, StringFormat='{0:MMM dd, yyyy HH:mm}'}"></Label>
+            </StackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

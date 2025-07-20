@@ -4,7 +4,46 @@
              x:Class="Orama.Pages.Search"
              Shell.NavBarIsVisible="False"
              Title="Search">
-    <ScrollView x:Name="SwipeArea">
-        
+    <ScrollView>
+        <StackLayout x:Name="SlideArea">
+            <StackLayout Background="{AppThemeBinding Light=white,Dark=#6E6E6E}" HeightRequest="60">
+                <Grid ColumnDefinitions="auto,*,auto" Margin="10,10,0,0" ColumnSpacing="20">
+                    <Border Grid.Column="0" WidthRequest="40" HeightRequest="40">
+                        <Border.StrokeShape>
+                            <RoundRectangle  CornerRadius="30"/>
+                        </Border.StrokeShape>
+                        <Image Source="image.png" HeightRequest="40" WidthRequest="40">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                            </Image.GestureRecognizers>
+                        </Image>
+                    </Border>
+                    <Border Grid.Column="1" BackgroundColor="AliceBlue" HeightRequest="35">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer         />
+                        </Border.GestureRecognizers>
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="20"/>
+                        </Border.StrokeShape>
+                        <Border.Stroke>
+                            <SolidColorBrush Color="Transparent"/>
+                        </Border.Stroke>
+                        <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
+                            <Image Source="{AppThemeBinding Light=search.png,Dark=search.png}" HeightRequest="18"></Image>
+                            <Label Text="Search" VerticalOptions="Center" TextColor="{AppThemeBinding Light=black,Dark=black}"></Label>
+                        </HorizontalStackLayout>
+                    </Border>
+                    <HorizontalStackLayout Grid.Column="2">
+                        <Image Source="{AppThemeBinding Light=setting.png,Dark=setting_light.png}" WidthRequest="30">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="Setting_Tapped"/>
+                            </Image.GestureRecognizers>
+                        </Image>
+                    </HorizontalStackLayout>
+                </Grid>
+                <!-- custom navbar-->
+            </StackLayout>
+            
+        </StackLayout>
     </ScrollView>
 </ContentPage>
