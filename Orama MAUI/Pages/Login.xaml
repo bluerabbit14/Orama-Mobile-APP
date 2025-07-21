@@ -44,10 +44,6 @@
                 </Grid>
             </Border>
             <Label x:Name="MsgIfPasswordIsEmpty"  Grid.Row="3"  IsVisible="false" Text="Password can not be empty" FontSize="12" TextColor="Red" HorizontalTextAlignment="Start"/>
-            <Grid ColumnDefinitions="auto,*" Grid.Row="4" Margin="0,10">
-                <CheckBox x:Name="RememberMeCheckBox" ></CheckBox>
-                <Label Grid.Column="1" Text="Remember me" VerticalOptions="Center"></Label>
-            </Grid>
             <Button Grid.Row="5" Text="Log In" Clicked="Button_Clicked" ></Button>
         </Grid>
        

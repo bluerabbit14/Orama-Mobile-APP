@@ -22,8 +22,6 @@ public partial class Login :ContentPage
     {
         var email = EmailTextBox.Text?.Trim();
         var password = PasswordTextBox.Text?.Trim();
-        var checkbox = RememberMeCheckBox.IsChecked;
-
           if (string.IsNullOrEmpty(email))
           {
               MsgIfEmailIsEmpty.IsVisible = true;
@@ -45,14 +43,12 @@ public partial class Login :ContentPage
               return;
           }
           
-          LoginRequest request = new LoginRequest { Email = email, Password = password, RememberMe = checkbox, LastLogin = DateTime.UtcNow };
+          LoginRequest request = new LoginRequest { Email = email, Password = password, LastLogin = DateTime.UtcNow };
           if (request.Email.Equals("14asifcr7@gmail.com") && request.Password.Equals("admin@123"))
           {              
-               if (checkbox)
-               {
+               
                    Preferences.Set("UserEmail", email);
                    Preferences.Set("UserPassword", password);
-               }
                await Toast.Make("Succesfully Logged In").Show();
                if (Application.Current?.Windows.Count > 0 && Application.Current.Windows[0] != null)
                       Application.Current.Windows[0].Page = new AppShell();
