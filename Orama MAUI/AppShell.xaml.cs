@@ -71,5 +71,45 @@ namespace Orama
             }
             Navigation.PushAsync(new Profile());
         }
+
+        private void TapGestureRecognizer_Tapped_1(object sender, TappedEventArgs e)
+        {
+
+        }
+
+        private void TapGestureRecognizer_Tapped_2(object sender, TappedEventArgs e)
+        {
+
+        }
+
+        private void TapGestureRecognizer_Tapped_3(object sender, TappedEventArgs e)
+        {
+
+        }
+
+        private void TapGestureRecognizer_Tapped_4(object sender, TappedEventArgs e)
+        {
+
+        }
+
+        private void TapGestureRecognizer_Tapped_5(object sender, TappedEventArgs e)
+        {
+
+        }
+
+        private void TapGestureRecognizer_Tapped_6(object sender, TappedEventArgs e)
+        {
+
+        }
+
+        private void TapGestureRecognizer_Tapped_7(object sender, TappedEventArgs e)
+        {
+
+        }
+
+        private void TapGestureRecognizer_Tapped_8(object sender, TappedEventArgs e)
+        {
+
+        }
     }
 }

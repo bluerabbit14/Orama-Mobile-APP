@@ -5,7 +5,7 @@ namespace Orama
 {
     public partial class App : Application
     {
-        private AppStatus appStatus;
+        private readonly AppStatus appStatus;
 
         public App()
         {
@@ -15,28 +15,18 @@ namespace Orama
 
         protected override Window CreateWindow(IActivationState? activationState)
         {
-            try
+            Page rootPage;
+            if (!appStatus.IsLoggedIn)
             {
-                Page rootPage;
-                if (appStatus.IsLoggedIn == false)
-                    rootPage = new NavigationPage(new Login());
-                else
-                    rootPage = new AppShell();
+                // Always wrap in NavigationPage for consistent navigation
+                rootPage = new NavigationPage(new Login());
+            }
+            else
+            {
+                rootPage = new AppShell();
+            }
 
-                return new Window(rootPage);
-            }
-            catch (NullReferenceException ex)
-            {
-                // Handle null value exception specifically
-                Console.WriteLine($"NullReferenceException: {ex.Message}");
-                throw;
-            }
-            catch (Exception ex)
-            {
-                // Handle all other exceptions
-                Console.WriteLine($"Exception: {ex.Message}");
-                throw;
-            }
+            return new Window(rootPage);
         }
     }
 }

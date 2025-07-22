@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace Orama.Models
 {
-    public class LoginResponse
+    public class SignupResponse
     {
         public required string Message { get; set; }
         public int? UserId { get; set; }
-        public DateTime? Logintime { get; set; }
+        public string? Email { get; set; }
+        public DateTime? CreatedAt{ get; set; }
     }
 }

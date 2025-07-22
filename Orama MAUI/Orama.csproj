@@ -59,6 +59,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <AndroidResource Remove="CustomLayout\**" />
+	  <Compile Remove="CustomLayout\**" />
+	  <EmbeddedResource Remove="CustomLayout\**" />
+	  <MauiCss Remove="CustomLayout\**" />
+	  <MauiXaml Remove="CustomLayout\**" />
+	  <None Remove="CustomLayout\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <MauiImage Include="Resources\Splash\orama_darkk.png" />
 	</ItemGroup>
 
@@ -101,10 +110,6 @@
 	  <MauiXaml Update="Pages\Support.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="CustomLayout\" />
 	</ItemGroup>
 
 </Project>

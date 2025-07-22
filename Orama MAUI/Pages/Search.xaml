@@ -2,12 +2,12 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Orama.Pages.Search"
-             Shell.NavBarIsVisible="False"
+             Shell.NavBarIsVisible="True"
              Title="Search">
     <ScrollView>
         <StackLayout x:Name="SlideArea">
             <StackLayout Background="{AppThemeBinding Light=white,Dark=#6E6E6E}" HeightRequest="60">
-                <Grid ColumnDefinitions="auto,*,auto" Margin="10,10,0,0" ColumnSpacing="20">
+                <Grid ColumnDefinitions="auto,*,auto" Margin="10" ColumnSpacing="20">
                     <Border Grid.Column="0" WidthRequest="40" HeightRequest="40">
                         <Border.StrokeShape>
                             <RoundRectangle  CornerRadius="30"/>

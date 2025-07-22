@@ -1,9 +1,9 @@
 using CommunityToolkit.Maui.Alerts;
 using Orama.Models;
-using System.Net;
-using System.Net.Mail;
 using System.Text.RegularExpressions;
-using System.Xml.Linq;
+#if WINDOWS
+using Orama.Platforms.Windows;
+#endif
 
 namespace Orama.Pages;
 
@@ -67,11 +67,6 @@ public partial class SignUp : ContentPage
             msgWhenPasswordIsTooCommon.IsVisible = true;
             return;
         }
-        if (CheckIsPasswordTooCommon(password))
-        {
-            msgWhenPasswordIsTooCommon.IsVisible = true;
-            return;
-        }
         if (string.IsNullOrEmpty(confirmpassword))
         {
             msgWhenConfirmPasswordIsEmpty.IsVisible = true;
@@ -89,12 +84,24 @@ public partial class SignUp : ContentPage
             return;
         }
 
-        SignUpRequest request = new SignUpRequest { Name = name, Email = email, Password = password, ConfirmPassword = confirmpassword, CreatedAt = DateTime.UtcNow };
+#if WINDOWS
+        var signupService = new WindowSignUpService();
+        var signupResponse = await signupService.SignupAsync(name, email, password);
+        if (signupResponse != null)
+        {
+            await DisplayAlert("Success", "Successfully Signed up", "OK");
+            Application.Current.MainPage = new Login();
+        }
+        else
+        {
+            await DisplayAlert("Signup Failed", signupResponse?.Message ?? "Signup failed.", "OK");
+        }
+#else
+        // Default hardcoded signup for other platforms
 
-        //API SignUp Precedure
-
-        await Toast.Make("Succesfully Signed up").Show();
-        Application.Current.MainPage = new Login();
+            await Toast.Make("Successfully Signed up").Show();
+            Application.Current.MainPage = new Login();
+#endif
     }
 
     private void NameTextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -124,6 +131,7 @@ public partial class SignUp : ContentPage
         msgWhenConfirmPasswordIsEmpty.IsVisible = false;
         msgWhenConfirmPasswordDoesNotMatch.IsVisible = false;
     }
+    
     private bool CheckNameIsValid(string name)
     {
         foreach (char c in name)
@@ -135,13 +143,29 @@ public partial class SignUp : ContentPage
         }
         return false;
     }
+    
     private bool CheckIsEmailValid(string email)
     {
-        const string pattern = @"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~]+@" +
-                          @"[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$";
+        const string pattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
+        if (!Regex.IsMatch(email, pattern))
+            return false;
 
-        return Regex.IsMatch(email, pattern);
+        // Additional check: no consecutive dots
+        if (email.Contains(".."))
+            return false;
+
+        // Additional check: must not start or end with dot
+        var parts = email.Split('@');
+        if (parts.Length != 2)
+            return false;
+        if (parts[0].StartsWith(".") || parts[0].EndsWith("."))
+            return false;
+        if (parts[1].StartsWith(".") || parts[1].EndsWith("."))
+            return false;
+
+        return true;
     }
+    
     private bool CheckIsPasswordWeak(string password)
     {
         bool hasUpper = password.Any(char.IsUpper);
@@ -155,6 +179,7 @@ public partial class SignUp : ContentPage
             return true;
         return false;
     }
+    
     private bool CheckIsPasswordTooCommon(string password)
     {
         var weakList = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
@@ -166,13 +191,14 @@ public partial class SignUp : ContentPage
             return true;
         return false;
     }
+    
     private bool CheckIsPasswordTooLong(string password)
     {
         if (password.Length > 16)
             return true;
         return false;
-
     }
+    
     private bool CheckIsPasswordTooShort(string password)
     {
         if (password.Length < 8)

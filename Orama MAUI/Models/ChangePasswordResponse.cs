@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace Orama.Models
 {
-    public class LoginRequest
+    public class ChangePasswordResponse
     {
-        public required string Email { get; set; }
-        public required string Password { get; set; }
+        public string Email { get; set; }
+        public string Message { get; set; }
+
 
     }
 }

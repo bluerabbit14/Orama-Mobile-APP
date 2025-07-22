@@ -87,5 +87,68 @@ namespace Orama_API.Services
             };
             return result;
         }
+        public async Task<ChangePasswordResponseDTO> PasswordUserAsync(ChangePasswordRequestDTO changePasswordRequestDto)
+        {
+            if (string.IsNullOrWhiteSpace(changePasswordRequestDto.Email))
+                throw new ArgumentException("Email is required field.");
+
+            var user = await _context.UserProfilies
+                .FirstOrDefaultAsync(u => u.Email == changePasswordRequestDto.Email);
+
+            if (user == null)
+                throw new InvalidOperationException("Email is not Registered");
+
+            if (user.IsActive == false)
+                throw new InvalidOperationException("User is not active");
+
+            user.Password = changePasswordRequestDto.NewPassword;
+            user.LastUpdated = DateTime.UtcNow;
+            await _context.SaveChangesAsync();
+
+            var result = new ChangePasswordResponseDTO()
+            {
+                Email = changePasswordRequestDto.Email,
+                Message = "Password changed successfully"
+            };
+            return result;
+        }
+        public async Task<bool> EmailRegisteredAsync(string Email)
+        {
+
+            var user = await _context.UserProfilies
+                .FirstOrDefaultAsync(u => u.Email == Email);
+
+            if (user.IsActive == false)
+                throw new InvalidOperationException("User is not active");
+
+            if (user == null)
+                return false;
+            return true;
+        }
+        public async Task<bool> VerifyUserEmailAsync(string Email)
+        {
+            var user = await _context.UserProfilies
+                .FirstOrDefaultAsync(u => u.Email == Email);
+                
+            if (user == null)
+                throw new InvalidOperationException($"User with Email: {Email} not found.");
+                
+            if (user.IsEmailVerified)
+                return true;
+            return false;
+        }
+        public async Task<bool> VerifyUserPhoneAsync(string Phone)
+        {
+            var user = await _context.UserProfilies
+                .FirstOrDefaultAsync(u => u.Phone == Phone);
+                
+            if (user == null)
+                throw new InvalidOperationException($"User with phone number: {Phone} not found.");
+                
+            if (user.IsPhoneVerified)
+                return true;
+            return false;
+        }
+
     }
 }

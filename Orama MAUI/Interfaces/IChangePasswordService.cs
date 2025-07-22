@@ -5,10 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Orama.Utility
+namespace Orama.Interfaces
 {
-    class Constant
+    public interface IChangePasswordService
     {
-       public static string WindowLoginApiUrl = "http://localhost:5112/api/User";
+      Task<ChangePasswordResponse> PasswordAsync(string email,string password);
     }
 }
