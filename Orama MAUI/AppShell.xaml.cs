@@ -16,11 +16,11 @@ namespace Orama
             Routing.RegisterRoute(nameof(SignUp), typeof(SignUp));
             Routing.RegisterRoute(nameof(ForgotPassword), typeof(ForgotPassword));
             Routing.RegisterRoute(nameof(Home), typeof(Home));
-            Routing.RegisterRoute(nameof(Profile), typeof(Profile));
             Routing.RegisterRoute(nameof(Notification), typeof(Notification));
             Routing.RegisterRoute(nameof(Support), typeof(Support));
-            Routing.RegisterRoute(nameof(Search), typeof(Search));
             Routing.RegisterRoute(nameof(NotificationDetail), typeof(NotificationDetail));
+            Routing.RegisterRoute(nameof(Analyse), typeof(Analyse));
+            Routing.RegisterRoute(nameof(Setting), typeof(Setting));
 
             if (Application.Current != null)
             {
@@ -69,7 +69,7 @@ namespace Orama
             {
                 Shell.Current.FlyoutIsPresented = false;
             }
-            Navigation.PushAsync(new Profile());
+           // Navigation.PushAsync(new Profile());
         }
 
         private void TapGestureRecognizer_Tapped_1(object sender, TappedEventArgs e)

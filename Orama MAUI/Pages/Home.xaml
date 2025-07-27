@@ -4,40 +4,9 @@
              xmlns:local="clr-namespace:Orama.Pages"
              xmlns:vm="clr-namespace:Orama.Models.ViewModels"
              x:Class="Orama.Pages.Home"  
-             Shell.NavBarIsVisible="False"  
-             Title="Home">  
+             Shell.NavBarIsVisible="True">  
     <ScrollView>
         <StackLayout x:Name="SlideArea">
-            <StackLayout Background="{AppThemeBinding Light=white,Dark=#6E6E6E}" HeightRequest="60">
-                <Grid ColumnDefinitions="auto,*,auto" Margin="0,0,10,0">
-                    <Border Grid.Column="0"  Margin="10,0"  WidthRequest="40" HeightRequest="40">
-                        <Border.StrokeShape>
-                            <RoundRectangle  CornerRadius="30"/>
-                        </Border.StrokeShape>
-                        <Image Source="image.png" HeightRequest="40" WidthRequest="40">
-                            <Image.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
-                            </Image.GestureRecognizers>
-                        </Image>
-                    </Border>
-                    <HorizontalStackLayout Grid.Column="1"  HorizontalOptions="Center">
-                        <Image Source="{AppThemeBinding Light=orama.png, Dark=orama_light.png}" HeightRequest="60"></Image>
-                    </HorizontalStackLayout>
-                    <HorizontalStackLayout Grid.Column="2" Spacing="10">
-                        <Image Source="{AppThemeBinding Light=support.png,Dark=support_light.png}" HeightRequest="28">
-                            <Image.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="Support_tapped"/>
-                            </Image.GestureRecognizers>
-                        </Image>
-                        <Image Source="{AppThemeBinding Light=notification.png,Dark=notification_light.png}" HeightRequest="28">
-                            <Image.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="Notification_Tapped"/>
-                            </Image.GestureRecognizers>
-                        </Image>
-                    </HorizontalStackLayout>
-                </Grid>
-                <!-- custom navbar -->
-            </StackLayout>
             <Grid IsVisible="true">
                 <IndicatorView x:Name="HomeIndicator1" HorizontalOptions="Center"  
                                IndicatorColor="{AppThemeBinding Light=LightGrey,Dark=LightGrey}"  
@@ -60,7 +29,6 @@
                     </CarouselView.ItemTemplate>
                 </CarouselView>
             </Grid>
-            <!-- Home CarouselView  -->
         </StackLayout>
     </ScrollView>  
 </ContentPage>

@@ -2,87 +2,78 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Orama.Pages.SignUp"
-             Title="SignUp">
-    <VerticalStackLayout VerticalOptions="Start" Padding="30,0">
-        <Grid Margin="0,20"  RowSpacing="10">
-            <Image Source="orama.png" HeightRequest="80" WidthRequest="80"></Image>
-        </Grid>
+             BackgroundColor="#8B62A2"
+             Title="Sign Up">
+    <VerticalStackLayout  Padding="20" Spacing="20">
+        <Border StrokeThickness="5" WidthRequest="100" HeightRequest="100" BackgroundColor="White">
+            <Border.Stroke>
+                <SolidColorBrush Color="black"/>
+            </Border.Stroke>
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="50"/>
+            </Border.StrokeShape>
+            <Image Source="orama.png" HeightRequest="80" WidthRequest="80" Margin="0,20"></Image>
+        </Border>
         <Grid RowSpacing="10">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"></RowDefinition>
                 <RowDefinition Height="auto"></RowDefinition>
                 <RowDefinition Height="auto"></RowDefinition>
                 <RowDefinition Height="auto"></RowDefinition>
-                <RowDefinition Height="auto"></RowDefinition>
-                <RowDefinition Height="auto"></RowDefinition>
-                <RowDefinition Height="auto"></RowDefinition>
-                <RowDefinition Height="auto"></RowDefinition>
             </Grid.RowDefinitions>
-            <Border Grid.Row="0">
+            <Border Grid.Row="0" BackgroundColor="white">
                 <Border.Stroke>
-                    <SolidColorBrush Color="Black"/>
+                    <SolidColorBrush Color="White"/>
                 </Border.Stroke>
                 <Border.StrokeShape>
                     <RoundRectangle CornerRadius="10"/>
                 </Border.StrokeShape>
                 <Grid ColumnDefinitions="auto,*">
                     <Image Source="{AppThemeBinding Light=profile.png,Dark=profile_light.png}" WidthRequest="20" HeightRequest="20" Margin="10,0,0,0"></Image>
-                    <Entry x:Name="NameTextBox" Grid.Column="1" Placeholder="Enter Your Name" TextChanged="NameTextBox_TextChanged"/>
+                    <Entry x:Name="NameTextBox" Grid.Column="1" Placeholder="Enter Your Name" />
                 </Grid>
             </Border>
-            <Label x:Name="msgWhenNameIsEmpty"  Grid.Row="1" Text="* Name can not be Empty" IsVisible="false" TextColor="Red" FontSize="12" HorizontalTextAlignment="Start"></Label>
-            <Label x:Name="msgWhenNameIsNotValid"  Grid.Row="1" Text="* Name can not contain number,special character" IsVisible="false" TextColor="Red" FontSize="12" HorizontalTextAlignment="Start"></Label>
-            <Border  Grid.Row="2">
+            <Border  Grid.Row="1"  BackgroundColor="white">
                 <Border.Stroke>
-                    <SolidColorBrush Color="Black"/>
+                    <SolidColorBrush Color="white"/>
                 </Border.Stroke>
                 <Border.StrokeShape>
                     <RoundRectangle CornerRadius="10"/>
                 </Border.StrokeShape>
                 <Grid ColumnDefinitions="auto,*">
                     <Image Source="{AppThemeBinding Light=envelope.png,Dark=envelope_light.png}" WidthRequest="20" HeightRequest="20" Margin="10,0,0,0"></Image>
-                    <Entry x:Name="EmailTextBox" Grid.Column="1" Placeholder="Enter Your Email" TextChanged="EmailTextBox_TextChanged" />
+                    <Entry x:Name="EmailTextBox" Grid.Column="1" Placeholder="Enter Your Email" />
                 </Grid>
             </Border>
-            <Label x:Name="msgWhenEmailIsEmpty" Grid.Row="3" Text="* Email can not be empty" IsVisible="false" TextColor="Red" FontSize="12" HorizontalTextAlignment="Start"></Label>
-            <Label x:Name="msgWhenEmailIsRegistered" Grid.Row="3" Text="* Email Already Registered. Login !" IsVisible="false" TextColor="Red" FontSize="12" HorizontalTextAlignment="Start"></Label>
-            <Label x:Name="msgWhenEmailIsInvalid" Grid.Row="3" Text="* Email is Invalid" IsVisible="false" TextColor="Red" FontSize="12" HorizontalTextAlignment="Start"></Label>
-            <Border Grid.Row="4">
+            <Border Grid.Row="2"  BackgroundColor="white">
                 <Border.Stroke>
-                    <SolidColorBrush Color="Black"/>
+                    <SolidColorBrush Color="white"/>
                 </Border.Stroke>
                 <Border.StrokeShape>
                     <RoundRectangle CornerRadius="10"/>
                 </Border.StrokeShape>
                 <Grid ColumnDefinitions="auto,*">
                     <Image Source="{AppThemeBinding Light=lock.png,Dark=lock_light.png}" WidthRequest="20" HeightRequest="20" Margin="10,0,0,0"></Image>
-                    <Entry x:Name="PasswordTextBox" Grid.Column="1"  Placeholder="Enter Your Password" TextChanged="PasswordTextBox_TextChanged" />
+                    <Entry x:Name="PasswordTextBox" Grid.Column="1"  Placeholder="Enter Your Password"  />
                 </Grid>
             </Border>
-            <Label x:Name="msgWhenPasswordIsEmpty" Grid.Row="5" Text="* Password can not be empty" IsVisible="false" TextColor="Red" FontSize="12" HorizontalTextAlignment="Start"></Label>
-            <Label x:Name="msgWhenPasswordIsWeak" Grid.Row="5" Text="* Password is too weak, atleast one special character" TextColor="Red" IsVisible="false" FontSize="12" HorizontalTextAlignment="Start"></Label>
-            <Label x:Name="msgWhenPasswordIsTooCommon" Grid.Row="5" Text="* Password is too common" TextColor="Red" IsVisible="false" FontSize="12" HorizontalTextAlignment="Start"></Label>
-            <Label x:Name="msgWhenPasswordIsTooLong" Grid.Row="5" Text="* Password is too long, must be under 8-16 characters" TextColor="Red" IsVisible="false" FontSize="12" HorizontalTextAlignment="Start"></Label>
-            <Label x:Name="msgWhenPasswordIsTooshort" Grid.Row="5" Text="* Password is too short, must be under 8-16 characters" TextColor="Red" IsVisible="false" FontSize="12" HorizontalTextAlignment="Start"></Label>
-            <Border Grid.Row="6">
+            <Border Grid.Row="3"  BackgroundColor="white">
                 <Border.Stroke>
-                    <SolidColorBrush Color="Black"/>
+                    <SolidColorBrush Color="white"/>
                 </Border.Stroke>
                 <Border.StrokeShape>
                     <RoundRectangle CornerRadius="10"/>
                 </Border.StrokeShape>
                 <Grid ColumnDefinitions="auto,*">
                     <Image Source="{AppThemeBinding Light=lock.png,Dark=lock_light.png}" WidthRequest="20" HeightRequest="20" Margin="10,0,0,0"></Image>
-                    <Entry x:Name="PasswordConfirmTextBox" Grid.Column="1" Placeholder="Confirm Your Password" TextChanged="PasswordConfirmTextBox_TextChanged" />
+                    <Entry x:Name="PasswordConfirmTextBox" Grid.Column="1" Placeholder="Confirm Your Password" />
                 </Grid>
             </Border>
-            <Label x:Name="msgWhenConfirmPasswordIsEmpty" Grid.Row="7" Text="* Confirm Password can not be empty" IsVisible="false" TextColor="Red" FontSize="12" HorizontalTextAlignment="Start"></Label>
-            <Label x:Name="msgWhenConfirmPasswordDoesNotMatch" Grid.Row="7" Text="* Confirm Password must match with Password" IsVisible="false" TextColor="Red" FontSize="12" HorizontalTextAlignment="Start"></Label>
         </Grid>
         <Grid ColumnDefinitions="auto,*">
-            <CheckBox x:Name="checkBoxOfTerms"></CheckBox>
-            <Label Grid.Column="1" Text="I agree to Orama terms and Conditions" VerticalOptions="Center"></Label>
+            <CheckBox x:Name="checkBoxOfTerms" Color="white"></CheckBox>
+            <Label Grid.Column="1" Text="I agree to Orama terms and Conditions" TextColor="white" VerticalOptions="Center"></Label>
         </Grid>
-        <Button  Text="Sign Up" Clicked="Button_Clicked" Margin="0,20"></Button>
+        <Button  Text="Sign Up" Clicked="signup_Button_Clicked" Margin="0,20"></Button>
     </VerticalStackLayout>
 </ContentPage>

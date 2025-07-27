@@ -136,10 +136,17 @@
                 </DataTemplate>
             </ShellContent.ContentTemplate>
         </ShellContent>
-        <ShellContent Route="Search" Icon="{AppThemeBinding Light=search.png,Dark=search_light.png}">
+        <ShellContent Route="Analyse" Icon="{AppThemeBinding Light=analyse.png,Dark=analyse_light.png}">
             <ShellContent.ContentTemplate>
                 <DataTemplate>
-                    <pages:Search />
+                    <pages:Analyse />
+                </DataTemplate>
+            </ShellContent.ContentTemplate>
+        </ShellContent>
+        <ShellContent Route="Setting" Icon="{AppThemeBinding Light=setting.png,Dark=setting_light.png}">
+            <ShellContent.ContentTemplate>
+                <DataTemplate>
+                    <pages:Setting/>
                 </DataTemplate>
             </ShellContent.ContentTemplate>
         </ShellContent>

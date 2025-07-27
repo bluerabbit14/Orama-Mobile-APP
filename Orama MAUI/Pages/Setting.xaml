@@ -2,10 +2,105 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Orama.Pages.Setting"
-             Title="Setting">
+             Shell.NavBarIsVisible="False">
     <ScrollView>
-        <VerticalStackLayout>
-            
+        <VerticalStackLayout Spacing="5" Padding="20,30">
+            <Border x:Name="profileblock" BackgroundColor="lightGrey" Padding="10">
+                <Border.Stroke>
+                    <SolidColorBrush Color="Grey"/>
+                </Border.Stroke>
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10"/>
+                </Border.StrokeShape>
+                <Grid ColumnDefinitions="auto,*,auto" RowDefinitions="*">
+                    <Border Grid.Column="0">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="30"/>
+                        </Border.StrokeShape>
+                        <Image Source="image.png" HeightRequest="50" WidthRequest="50"/>
+                    </Border>
+                    <VerticalStackLayout Grid.Column="1" Margin="10,0" VerticalOptions="Center">
+                        <Label  Text="Profile" FontSize="22" />
+                        <Label Text="14asifcr7@gmail.com"/>
+                    </VerticalStackLayout>
+                    <VerticalStackLayout Grid.Column="2" VerticalOptions="Center">
+                        <Image Source="{AppThemeBinding Light=arrow.png,Dark=arrow_light.png}" HeightRequest="20"/>
+                    </VerticalStackLayout>
+                </Grid>
+            </Border>
+             
+            <Border  BackgroundColor="lightGrey" Padding="10">
+                <Border.Stroke>
+                    <SolidColorBrush Color="Grey"/>
+                </Border.Stroke>
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10"/>
+                </Border.StrokeShape>
+                <Grid ColumnDefinitions="auto,*,auto" RowDefinitions="*" ColumnSpacing="10">
+                    <Image Grid.Column="0" Source="notification.png" HeightRequest="20"></Image>
+                    <Label Grid.Column="1"  Text="Notifications"/>
+                </Grid>
+            </Border>
+            <Border  BackgroundColor="lightGrey" Padding="10">
+                <Border.Stroke>
+                    <SolidColorBrush Color="Grey"/>
+                </Border.Stroke>
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10"/>
+                </Border.StrokeShape>
+                <Grid ColumnDefinitions="auto,*,auto" RowDefinitions="*" ColumnSpacing="10">
+                    <Image Grid.Column="0" Source="notification.png" HeightRequest="20"></Image>
+                    <Label Grid.Column="1"  Text="Notifications"/>
+                </Grid>
+            </Border>
+            <Border  BackgroundColor="lightGrey" Padding="10">
+                <Border.Stroke>
+                    <SolidColorBrush Color="Grey"/>
+                </Border.Stroke>
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10"/>
+                </Border.StrokeShape>
+                <Grid ColumnDefinitions="auto,*,auto" RowDefinitions="*" ColumnSpacing="10">
+                    <Image Grid.Column="0" Source="notification.png" HeightRequest="20"></Image>
+                    <Label Grid.Column="1"  Text="Notifications"/>
+                </Grid>
+            </Border>
+            <Border  BackgroundColor="lightGrey" Padding="10">
+                <Border.Stroke>
+                    <SolidColorBrush Color="Grey"/>
+                </Border.Stroke>
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10"/>
+                </Border.StrokeShape>
+                <Grid ColumnDefinitions="auto,*,auto" RowDefinitions="*" ColumnSpacing="10">
+                    <Image Grid.Column="0" Source="notification.png" HeightRequest="20"></Image>
+                    <Label Grid.Column="1"  Text="Notifications"/>
+                </Grid>
+            </Border>
+            <Border  BackgroundColor="lightGrey" Padding="10">
+                <Border.Stroke>
+                    <SolidColorBrush Color="Grey"/>
+                </Border.Stroke>
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10"/>
+                </Border.StrokeShape>
+                <Grid ColumnDefinitions="auto,*,auto" RowDefinitions="*" ColumnSpacing="10">
+                    <Image Grid.Column="0" Source="notification.png" HeightRequest="20"></Image>
+                    <Label Grid.Column="1"  Text="Notifications"/>
+                </Grid>
+            </Border>
+            <Border  BackgroundColor="lightGrey" Padding="10">
+                <Border.Stroke>
+                    <SolidColorBrush Color="Grey"/>
+                </Border.Stroke>
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10"/>
+                </Border.StrokeShape>
+                <Grid ColumnDefinitions="auto,*,auto" RowDefinitions="*" ColumnSpacing="10">
+                    <Image Grid.Column="0" Source="notification.png" HeightRequest="20"></Image>
+                    <Label Grid.Column="1"  Text="Notifications"/>
+                </Grid>
+            </Border>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

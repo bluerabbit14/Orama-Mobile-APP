@@ -1,6 +1,10 @@
 using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Maui.Views;
 using Orama.Models;
 using System.Text.RegularExpressions;
+using System.Net.Http;
+using System.Net.Http.Json;
 #if WINDOWS
 using Orama.Platforms.Windows;
 #endif
@@ -14,7 +18,7 @@ public partial class SignUp : ContentPage
         InitializeComponent();
     }
 
-    private async void Button_Clicked(object sender, EventArgs e)
+    private async void signup_Button_Clicked(object sender, EventArgs e)
     {
         var name = NameTextBox.Text?.Trim();
         var email = EmailTextBox.Text?.Trim();
@@ -22,116 +26,93 @@ public partial class SignUp : ContentPage
         var confirmpassword = PasswordConfirmTextBox.Text?.Trim();
         bool checkbox = checkBoxOfTerms.IsChecked;
 
-        if (string.IsNullOrEmpty(name))
+        if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
         {
-            msgWhenNameIsEmpty.IsVisible = true;
+                await DisplayAlert("Validation Error", "Please fill in all required fields.", "OK");
+                return;
+        }
+        if(CheckNameIsValid(name))
+        {
+            await DisplayAlert("Validation Error", "Name is not valid.", "OK");
             return;
         }
-        if (CheckNameIsValid(name))
+        // to check is email already registered
+        if (false)
         {
-            msgWhenNameIsNotValid.IsVisible= true;
-            return;
-        }
-        if (string.IsNullOrEmpty(email))
-        {
-            msgWhenEmailIsEmpty.IsVisible = true;
-            return;
+
         }
         if (!CheckIsEmailValid(email))
         {
-            msgWhenEmailIsInvalid.IsVisible = true;
+            await DisplayAlert("Validation Error", "Please enter a valid email address.", "OK");
             return;
         }
-        if (string.IsNullOrEmpty(password))
+        if (password != confirmpassword)
         {
-            msgWhenPasswordIsEmpty.IsVisible = true;
-            return;
-        }
-        if (CheckIsPasswordTooShort(password))
-        {
-            msgWhenPasswordIsTooshort.IsVisible = true;
+            await DisplayAlert("Validation Error", "Passwords do not match.", "OK");
             return;
         }
         if (CheckIsPasswordWeak(password))
         {
-            msgWhenPasswordIsWeak.IsVisible = true;
+            await DisplayAlert("Validation Error", "Password is too weak. Please include uppercase, lowercase, numbers, and symbols.", "OK");
             return;
         }
-        if (CheckIsPasswordTooLong(password))
-        {
-            msgWhenPasswordIsTooLong.IsVisible = true;
-            return;
-        }
+
         if (CheckIsPasswordTooCommon(password))
         {
-            msgWhenPasswordIsTooCommon.IsVisible = true;
+            await DisplayAlert("Validation Error", "Password is too common. Please choose a stronger password.", "OK");
             return;
         }
-        if (string.IsNullOrEmpty(confirmpassword))
+
+        if (CheckIsPasswordTooShort(password))
         {
-            msgWhenConfirmPasswordIsEmpty.IsVisible = true;
+            await DisplayAlert("Validation Error", "Password must be at least 8 characters long.", "OK");
             return;
         }
-        if(!password.Equals(confirmpassword))
+
+        if (CheckIsPasswordTooLong(password))
         {
-            msgWhenConfirmPasswordDoesNotMatch.IsVisible = true;
+            await DisplayAlert("Validation Error", "Password must not exceed 16 characters.", "OK");
             return;
         }
-        if(!checkbox)
+        if (!checkbox)
         {
-            bool answer= await DisplayAlert("Message", "Agree to Orama Terms & Condition ?", "Yes", "No");
+            bool answer = await DisplayAlert("Message", "Agree to Orama Terms & Condition ?", "Yes", "No");
             checkBoxOfTerms.IsChecked = answer;
             return;
         }
 
 #if WINDOWS
-        var signupService = new WindowSignUpService();
-        var signupResponse = await signupService.SignupAsync(name, email, password);
-        if (signupResponse != null)
+        // Use WindowAuthService for Windows
+        var windowAuthService = new WindowAuthService();
+        var signupResponse = await windowAuthService.SignupAsync(name, email, password);
+        if (signupResponse != null && signupResponse is SignupResponse response && response.UserId != null)
         {
-            await DisplayAlert("Success", "Successfully Signed up", "OK");
-            Application.Current.MainPage = new Login();
+            Preferences.Set("UserEmail", email);
+            Preferences.Set("UserPassword", password);
+            if (Application.Current?.Windows.Count > 0 && Application.Current.Windows[0] != null)
+                Application.Current.Windows[0].Page = new AppShell();
         }
         else
         {
-            await DisplayAlert("Signup Failed", signupResponse?.Message ?? "Signup failed.", "OK");
+            var errorMessage = signupResponse is SignupResponse errorResponse ? errorResponse.Message : "Signup failed.";
+            await DisplayAlert("SignUp Failed", errorMessage, "OK");
         }
-#else
-        // Default hardcoded signup for other platforms
-
-            await Toast.Make("Successfully Signed up").Show();
-            Application.Current.MainPage = new Login();
+#else 
+        // Default hardcoded signup for other platforms (testing only)
+        if (email.Equals("test@example.com") && password.Equals("Test@123"))
+        {
+            Preferences.Set("UserEmail", email);
+            Preferences.Set("UserPassword", password);
+            if (Application.Current?.Windows.Count > 0 && Application.Current.Windows[0] != null)
+                Application.Current.Windows[0].Page = new AppShell();
+        }
+        else
+        {
+            await DisplayAlert("SignUp Failed", "No other Platform is enabled yet", "OK");
+        }            
 #endif
     }
 
-    private void NameTextBox_TextChanged(object sender, TextChangedEventArgs e)
-    {
-        msgWhenNameIsEmpty.IsVisible = false;
-        msgWhenNameIsNotValid.IsVisible = false;
-    }
-
-    private void EmailTextBox_TextChanged(object sender, TextChangedEventArgs e)
-    {
-        msgWhenEmailIsEmpty.IsVisible = false;
-        msgWhenEmailIsInvalid.IsVisible = false;
-        msgWhenEmailIsRegistered.IsVisible = false;
-    }
-
-    private void PasswordTextBox_TextChanged(object sender, TextChangedEventArgs e)
-    {
-        msgWhenPasswordIsEmpty.IsVisible = false;
-        msgWhenPasswordIsWeak.IsVisible = false;
-        msgWhenPasswordIsTooCommon.IsVisible = false;
-        msgWhenPasswordIsTooshort.IsVisible = false;
-        msgWhenPasswordIsTooLong.IsVisible = false;
-    }
-
-    private void PasswordConfirmTextBox_TextChanged(object sender, TextChangedEventArgs e)
-    {
-        msgWhenConfirmPasswordIsEmpty.IsVisible = false;
-        msgWhenConfirmPasswordDoesNotMatch.IsVisible = false;
-    }
-    
     private bool CheckNameIsValid(string name)
     {
         foreach (char c in name)
@@ -139,7 +120,7 @@ public partial class SignUp : ContentPage
             if (Char.IsWhiteSpace(c))
                 continue;
             if (!char.IsLetter(c))
-                return true;
+                return true;  //if not valid 
         }
         return false;
     }

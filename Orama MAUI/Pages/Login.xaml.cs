@@ -3,7 +3,6 @@ using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Maui.Views;
 using Orama.Models;
 using System.Text.RegularExpressions;
-using Orama.Services;
 using System.Net.Http;
 using System.Net.Http.Json;
 #if WINDOWS
@@ -18,32 +17,30 @@ public partial class Login : ContentPage
     {
         InitializeComponent();
     }
-
-    private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
-    {
-        Navigation.PushAsync(new SignUp());
-    }
-    
-    private async void Button_Clicked(object sender, EventArgs e)
+    private async void Login_Button_Clicked(object sender, EventArgs e)
     {
         var email = EmailTextBox.Text?.Trim();
         var password = PasswordTextBox.Text?.Trim();
-        if (string.IsNullOrEmpty(email))
+        if(string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password) || string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
         {
-            MsgIfEmailIsEmpty.IsVisible = true;
+            var errorMessage = string.IsNullOrEmpty(email) ? "Email cannot be null" : string.IsNullOrEmpty(password) ? "Password cannot be null": string.IsNullOrWhiteSpace(email)?"Email cannot be white space":"Password cannot be white space";
+            await DisplayAlert("Login Failed", $"{errorMessage}", "ok");
             return;
         }
-        if (string.IsNullOrEmpty(password))
+
+        //to check is email registered or not
+        if(false)
         {
-            MsgIfPasswordIsEmpty.IsVisible = true;
+            var errorMessage = "Email not registered";
+            await DisplayAlert("Login Failed", $"{errorMessage}", "ok");
             return;
         }
 
 #if WINDOWS
-        // Use WindowLoginService for Windows
-        var loginService = new WindowsLoginService();
-        var loginResponse = await loginService.LoginAsync(email, password);
-        if (loginResponse != null && loginResponse.UserId != null)
+        // Use WindowAuthService for Windows
+        var windowAuthService = new WindowAuthorizeService();
+        var loginResponse = await windowAuthService.LoginAsync(email, password);
+        if (loginResponse != null)
         {
             Preferences.Set("UserEmail", email);
             Preferences.Set("UserPassword", password);
@@ -52,10 +49,11 @@ public partial class Login : ContentPage
         }
         else
         {
-            await DisplayAlert("Login Failed", loginResponse?.Message ?? "Invalid credentials.", "OK");
+            var errorMessage = loginResponse is LoginResponse errorResponse ? errorResponse.Message : "Invalid credentials.";
+            await DisplayAlert("Login Failed", errorMessage, "OK");
         }
 #else
-        // Default hardcoded login for other platforms
+        // Default hardcoded login for other platforms (testing only)
         if (email.Equals("14asifcr7@gmail.com") && password.Equals("admin@123"))
         {
             Preferences.Set("UserEmail", email);
@@ -70,30 +68,11 @@ public partial class Login : ContentPage
 #endif
     }
 
-    private void PasswordTextBox_TextChanged(object sender, TextChangedEventArgs e)
+    private void Signup_Tapped(object sender, TappedEventArgs e)
     {
-        MsgIfPasswordIsEmpty.IsVisible = false;
+        Navigation.PushAsync(new SignUp());
     }
-
-    private void EmailTextBox_TextChanged(object sender, TextChangedEventArgs e)
-    {
-        MsgIfEmailIsEmpty.IsVisible = false;
-        MsgIfEmailNotRegistered.IsVisible = false;
-        MsgIfEmailRegistered.IsVisible = false;
-        MsgIfEmailIsInvalid.IsVisible = false;
-    }
-    
-    private bool IsEmailRegistered(string email)
-    {
-        return false;
-    }
-    
-    private bool IsEmailNotRegistered(string email)
-    {
-        return false;
-    }
-
-    private void TapGestureRecognizer_Tapped_1(object sender, TappedEventArgs e)
+    private void forgotPassword_Tapped(object sender, TappedEventArgs e)
     {
         Navigation.PushAsync(new ForgotPassword());
     }
