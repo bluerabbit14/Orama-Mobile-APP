@@ -2,78 +2,125 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:chart="clr-namespace:Syncfusion.Maui.Charts;assembly=Syncfusion.Maui.Charts"
+             xmlns:control="clr-namespace:Syncfusion.Maui.Inputs;assembly=Syncfusion.Maui.Inputs"
+             xmlns:dataforms="clr-namespace:Syncfusion.Maui.DataForm;assembly=Syncfusion.Maui.DataForm"
+             
              x:Class="Orama.Pages.Analyse"
              Shell.NavBarIsVisible="False">
     <ScrollView>
         <VerticalStackLayout Spacing="20" Padding="20">
-            <Label Text="Revenue Analysis" 
-                   FontSize="24" 
-                   FontAttributes="Bold" 
-                   HorizontalOptions="Center" 
-                   Margin="0,0,0,20"/>
-         
-            <chart:SfCartesianChart HeightRequest="400" BackgroundColor="White" IsTransposed="False">
+            <Grid ColumnDefinitions="auto,auto,*" ColumnSpacing="10">
+                <Border Grid.Column="0" Padding="0">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="20"/>
+                    </Border.StrokeShape>
+                    <control:SfComboBox ItemsSource="{Binding Currencies}" Margin="10,0"
+                        DisplayMemberPath="Currency" TextMemberPath="Currency"  Placeholder="Select Currency"
+                        MaxDropDownHeight="300" IsDropDownOpen="False" IsClearButtonVisible="False">
+                    </control:SfComboBox>
+                </Border>
+                <Border Grid.Column="1" Padding="0">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="20"/>
+                    </Border.StrokeShape>
+                    <control:SfComboBox ItemsSource="{Binding ChartTypes}" Margin="10,0"
+                                        DisplayMemberPath="Name" TextMemberPath="Name" WidthRequest="140" Placeholder="Select Chart"
+                                        MaxDropDownHeight="300" IsDropDownOpen="False" IsClearButtonVisible="False">
+                    </control:SfComboBox>
+                </Border>
+            </Grid>
+            
+
+
+
+                <chart:SfCartesianChart HeightRequest="400" BackgroundColor="White" IsTransposed="False">
                 <chart:SfCartesianChart.Title>
-                    <Label Text="Cartesian bar graph" 
+                    <Label Text="Hotel Revenue" 
                            FontSize="18" 
                            FontAttributes="Bold" 
                            HorizontalOptions="Center"/>
                 </chart:SfCartesianChart.Title>
-
                 <chart:SfCartesianChart.Legend>
                     <chart:ChartLegend  ToggleSeriesVisibility="True"/>
                 </chart:SfCartesianChart.Legend>
-                
                 <chart:SfCartesianChart.Series>
                     <chart:ColumnSeries ItemsSource="{Binding RevenueData}"  
                                         Label="Total Gross Revenue"  
-                                        
+                                        Fill="#53bbd2"  
                                         XBindingPath="Hotel"  
                                         YBindingPath="TotalGrossRev"  
-                                        EnableTooltip="True"
-                                        PaletteBrushes="{Binding ColorBrushes}">
+                                        EnableTooltip="True">
                     </chart:ColumnSeries>
                     <chart:ColumnSeries ItemsSource="{Binding RevenueData}"  
                                         Label="My Gross Share"  
                                         Fill="#265984"  
                                         XBindingPath="Hotel"  
                                         YBindingPath="MyGrossShare"  
-                                        EnableTooltip="True"
-                                        PaletteBrushes="{Binding ColorBrushes}">
+                                        EnableTooltip="True">
                     </chart:ColumnSeries>
                 </chart:SfCartesianChart.Series>
-                
                 <chart:SfCartesianChart.XAxes>
-                    <chart:CategoryAxis ShowMajorGridLines="True" 
-                                        ShowTrackballLabel="True" 
+                    <chart:CategoryAxis ShowMajorGridLines="True"
+                                        LabelPlacement="OnTicks"
                                         IsVisible="True">
                         <chart:CategoryAxis.Title>
                             <chart:ChartAxisTitle Text="Hotel"/>
                         </chart:CategoryAxis.Title>
+                        <chart:CategoryAxis.MajorTickStyle>
+                            <chart:ChartAxisTickStyle TickSize="0"/>
+                        </chart:CategoryAxis.MajorTickStyle>
+
                     </chart:CategoryAxis>
                 </chart:SfCartesianChart.XAxes>
-
                 <chart:SfCartesianChart.YAxes>
                     <chart:NumericalAxis Minimum="0" 
-                                         Interval="1000">
+                                         Interval="1000"
+                                         ShowMajorGridLines="True">
                         <chart:NumericalAxis.LabelStyle>
                             <chart:ChartAxisLabelStyle LabelFormat="C0"/>
                         </chart:NumericalAxis.LabelStyle>
                         <chart:NumericalAxis.Title>
                             <chart:ChartAxisTitle Text="Revenue ($)"/>
                         </chart:NumericalAxis.Title>
+                        <chart:NumericalAxis.MajorTickStyle>
+                            <chart:ChartAxisTickStyle TickSize="0"/>
+                        </chart:NumericalAxis.MajorTickStyle>
                     </chart:NumericalAxis>
                 </chart:SfCartesianChart.YAxes>
-
-             
-                
             </chart:SfCartesianChart>
-            
-            
-            
-            
 
-          
+            <chart:SfCircularChart HeightRequest="300" WidthRequest="300">
+                <chart:SfCircularChart.Title>
+                    <Label Text="Population Distribution" 
+                           FontSize="18" 
+                           FontAttributes="Bold" 
+                           HorizontalOptions="Center"/>
+                </chart:SfCircularChart.Title>
+                <chart:SfCircularChart.Legend>
+                    <chart:ChartLegend/>
+                </chart:SfCircularChart.Legend>
+                <chart:SfCircularChart.Series>
+                    <chart:DoughnutSeries EnableAnimation="True"
+                                     ItemsSource="{Binding CircularData}"
+                                     PaletteBrushes="{Binding ColorBrushes}"
+                                     ShowDataLabels="True"
+                                     StrokeWidth="2"
+                                     Stroke="White"
+                                     XBindingPath="Country"
+                                     YBindingPath="Totalpopulation"
+                                     EnableTooltip="True"
+                                     StartAngle="0">
+                        <chart:DoughnutSeries.DataLabelSettings>
+                            <chart:CircularDataLabelSettings LabelPlacement="Outer" >
+                                <chart:CircularDataLabelSettings.LabelStyle>
+                                    <chart:ChartDataLabelStyle LabelFormat="#"/>
+                                </chart:CircularDataLabelSettings.LabelStyle>
+                            </chart:CircularDataLabelSettings>
+                        </chart:DoughnutSeries.DataLabelSettings>
+                    </chart:DoughnutSeries>
+                </chart:SfCircularChart.Series>
+            </chart:SfCircularChart> 
+            
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

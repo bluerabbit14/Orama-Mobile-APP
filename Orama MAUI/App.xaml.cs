@@ -29,7 +29,7 @@ namespace Orama
     }
     class AppStatus
     {
-        public bool IsLoggedIn { get; set; } = true;
+        public bool IsLoggedIn { get; set; } = false;
         public bool IsFirstRun { get; set; }
         public bool IsOnboardingComplete { get; set; }
         public bool IsNotificationsEnabled { get; set; }
